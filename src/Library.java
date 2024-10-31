@@ -1,35 +1,47 @@
 import javax.swing.*;
 import java.io.*;
+import java.time.LocalDate;
 
 public class Library {
+
+    //create object
+    UI uicall = new UI();
+
 
     // Add new game
     public void addGame(JTextField textArea) {
         String newGame = textArea.getText();
-        JOptionPane.showMessageDialog(null, " " + newGame + " has been added to your collection!", "New game added", JOptionPane.PLAIN_MESSAGE);
+        String modalmessage = newGame + " has been added to your game library on " + LocalDate.now();
+        String modaltitle = "Game added to library";
+        uicall.plainmodal(modaltitle, modalmessage);
+        textArea.setText("");
 
         // Writing to a CSV file
         try (FileWriter writer = new FileWriter("games.csv", true)) {
             writer.append("\n")
-                    .append(newGame);
+                    .append(newGame + " (added on " + LocalDate.now() + ")");
         } catch (java.io.IOException a) {
             System.out.print("No!");
         }
     }
 
-    // Show library - create csv reader class later
+    // Show library button - create csv reader class later
     public void seelib() {
         String csvFile = "games.csv";
-        String line;
+        StringBuilder headerLine = new StringBuilder();
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader("games.csv"));) {
 
-            while (true) {
-                try (BufferedReader br = new BufferedReader(new FileReader("games.csv"));) {
-                    String headerLine = br.readLine();
-                    br.readLine();
-                    JOptionPane.showMessageDialog(null, headerLine, "Nice", JOptionPane.PLAIN_MESSAGE);
-                } catch (IOException a) {
-                    System.out.print("No!");
-                }
-            }
+            do {
+                headerLine.append(line);
+                ;
+                headerLine.append("\n");
+            } while (((line = br.readLine())) != null);
+
+            JOptionPane.showMessageDialog(null, headerLine, "Current Library", JOptionPane.PLAIN_MESSAGE);
+        } catch (IOException a) {
+            System.out.print("No!");
+
         }
     }
+}
