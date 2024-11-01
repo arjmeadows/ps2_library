@@ -15,8 +15,6 @@ public class Main {
         frame.setSize(400, 800);
         frame.setLayout(new FlowLayout());
         JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-
 
         // create buttons
         JButton button1 = new JButton("Add game");
