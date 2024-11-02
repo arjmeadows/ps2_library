@@ -98,7 +98,7 @@ public class Library {
         DefaultListModel games = seelib();
 
         JList<String> itemList = new JList<>(games); // Create JList with items
-        itemList.setPreferredSize(new Dimension(500, 900)); // Width: 300 pixels, Height: 200 pixels
+        itemList.setPreferredSize(new Dimension(200, 500)); // Width: 300 pixels, Height: 200 pixels
         itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         frame.add(itemList);
 
@@ -118,8 +118,13 @@ public class Library {
         return itemList; // Ensure this line is after the listener
     }
 
-    public void imageswap() {
+    public void imageswap(String selectedgame) {
+        //database needs to match and find the column
+        ImageIcon imageIcon = new ImageIcon("src/mgs_cover.jpg");
+        JLabel label = new JLabel(imageIcon);
 
+        ;
+                    }
     }
 
 }

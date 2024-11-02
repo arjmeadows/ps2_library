@@ -13,7 +13,7 @@ public class Main {
         JFrame frame = new JFrame("Game Library");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1920, 1080);
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(new GridLayout());
 
         JPanel northPanel = new JPanel();
         northPanel.setLayout(new FlowLayout());
@@ -31,8 +31,6 @@ public class Main {
         listArea.setEditable(true);
 
         // add image
-        ImageIcon imageIcon = new ImageIcon("src/mgs_cover.jpg");
-        JLabel label = new JLabel(imageIcon);
 
         // create objects
         Library newGame = new Library();
@@ -69,7 +67,6 @@ public class Main {
 
         // Make the frame visible
         frame.setVisible(true);
-        panel.setVisible(true);
 
 
                                               }
