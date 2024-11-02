@@ -12,8 +12,8 @@ public class Main {
         // create frame
         JFrame frame = new JFrame("Game Library");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 800);
-        frame.setLayout(new FlowLayout());
+        frame.setSize(1920, 1080);
+        frame.setLayout(new GridBagLayout());
         JPanel panel = new JPanel();
 
         // create buttons
@@ -26,77 +26,46 @@ public class Main {
         JTextArea listArea = new JTextArea(20,20);
         listArea.setEditable(true);
 
+        // add image
+        ImageIcon imageIcon = new ImageIcon("src/mgs_cover.jpg");
+        JLabel label = new JLabel(imageIcon);
 
         // create objects
         Library newGame = new Library();
-        Library showlibrary = new Library();
-
-
-        // show list of games
-        String games = showlibrary.seelib().toString();
-        String[] splitgames = games.split("\n");
-        JList<String> itemList = new JList<>(splitgames); // Create JList with items
-        itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Allow single selection
-        JScrollPane scrollPane = new JScrollPane(itemList); // Add JList to JScrollPane
 
 
 
-        // remove existing items;
-        itemList.addListSelectionListener(new ListSelectionListener() {
-                                              @Override
-                                              public void valueChanged(ListSelectionEvent e) {
-                                                  if (!e.getValueIsAdjusting()) {
-                                                      Library deleteGame = new Library();
-                                                      String selectedItem = itemList.getSelectedValue();
-
-                                                      // call delete method on button press
-                                                      delete.addActionListener(new ActionListener() {
-                                                          @Override
-                                                          public void actionPerformed(ActionEvent e) {
-                                                              deleteGame.removeGame(selectedItem);
-                                                              delete.repaint();     // Forces the component to repaint itself
-
-                                                          }
-                                                      });
-                                                  }
-                                              }
-                                          });
-
-
-                                                  // invite to add game
-                                                  button1.addActionListener(new ActionListener() {
-                                                      @Override
-                                                      public void actionPerformed(ActionEvent e) {
-                                                          newGame.addGame(textArea);
+        // invite to add game
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newGame.addGame(textArea);
 
                                                       }
 
-                                                  });
+        });
 
-                                                  // open existing library
-                                                  button2.addActionListener(new ActionListener() {
-                                                      @Override
-                                                      public void actionPerformed(ActionEvent e) {
-                                                      Other.other();
+        // open existing library
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Other.other();
 
-                                                      }
-                                                  });
+            }
+        });
 
-                                                  // Add components to the frame
-                                                  frame.add(new JLabel("Enter Game Name:"));
-                                                  frame.add(button1);
-                                                  frame.add(button2);
-                                                  frame.add(textArea);
-                                                  frame.add(itemList);
-                                                  frame.add(delete);
+        // Add components to the frame
+        frame.add(new JLabel("Enter Game Name:"));
+        frame.add(button1);
+        frame.add(textArea);
+        //   frame.add(delete);
+        newGame.showList(frame); // calls method that shows list
 
-                                                  // Make the frame visible
-                                                  frame.setVisible(true);
-                                                  panel.setVisible(true);
+
+        // Make the frame visible
+        frame.setVisible(true);
+        panel.setVisible(true);
 
 
                                               }
                                           }
-
-
-// date causing issue? try a prefilled text box
