@@ -23,18 +23,16 @@ public class Library {
 
     // Writes game to the database
     public void addGame(JTextField inputField) { // this makes no sense.
-        String newGame = inputField.getText();
-        String modalmessage = newGame + " has been added to your game library on " + LocalDate.now();
+        String modalmessage = inputField + " has been added to your game library on " + LocalDate.now();
         String modaltitle = "Game added to library";
         String nameupdatesql = "INSERT INTO game_list(title) VALUES(?)";
 
         // Open connection to database and confirm to use
         try (Connection conn = dbManager.connect();  // Get a connection to the database
              PreparedStatement gametitle = conn.prepareStatement(nameupdatesql)) {
-            gametitle.setString(1, newGame);
+            gametitle.setString(1, gamename);
             gametitle.executeUpdate();
             uicall.plainmodal(modaltitle, modalmessage);
-            inputField.setText("");
             System.out.println("Written");
 
         } catch (SQLException e) {

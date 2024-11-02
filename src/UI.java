@@ -27,7 +27,7 @@ public class UI {
     }
 
     // create input field
-    public String inputField() {
+    public JTextField inputField() {
         JTextField inputField = new JTextField(20);
         inputField.setEditable(true);
         String input = inputField.getText();
@@ -41,7 +41,7 @@ public class UI {
         inputField_gbc.weighty = 5; // Vertical weight
         inputField_gbc.insets = new Insets(0, 0, 1, 0); // Insets for spacing
 
-        return input;
+        return inputField;
     }
 
     // create gameList
