@@ -13,8 +13,12 @@ public class Main {
         JFrame frame = new JFrame("Game Library");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1920, 1080);
-        frame.setLayout(new GridBagLayout());
-        JPanel panel = new JPanel();
+        frame.setLayout(new BorderLayout());
+
+        JPanel northPanel = new JPanel();
+        northPanel.setLayout(new FlowLayout());
+        northPanel.add(new JButton("Button 1"));
+        northPanel.add(new JButton("Button 2"));
 
         // create buttons
         JButton button1 = new JButton("Add game");
@@ -58,6 +62,7 @@ public class Main {
         frame.add(new JLabel("Enter Game Name:"));
         frame.add(button1);
         frame.add(textArea);
+        frame.add(label);
         //   frame.add(delete);
         newGame.showList(frame); // calls method that shows list
 

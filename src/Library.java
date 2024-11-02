@@ -1,13 +1,18 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Library {
 
     Connection conn = null; // Declare the connection variable
     ResultSet rs = null; // Declare the ResultSet variable
+    Scanner scanner = new Scanner(System.in);
+
 
     //create object
     UI uicall = new UI();
@@ -94,12 +99,28 @@ public class Library {
 
         JList<String> itemList = new JList<>(games); // Create JList with items
         itemList.setPreferredSize(new Dimension(500, 900)); // Width: 300 pixels, Height: 200 pixels
-
-        itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Allow single selection
+        itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         frame.add(itemList);
-        return itemList;
+
+        itemList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                // Only proceed if the selection is not adjusting (final selection)
+                if (!e.getValueIsAdjusting()) {
+                    String selectedGame = itemList.getSelectedValue(); // Get the selected item
+                    if (selectedGame != null) {
+                        System.out.println("Selected game: " + selectedGame);
+                    }
+                }
+            }
+        }); // Closing the addListSelectionListener block
+
+        return itemList; // Ensure this line is after the listener
     }
+
+    public void imageswap() {
 
     }
 
-// seelin meeds to roeturn a list model?
+}
+
