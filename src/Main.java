@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -9,65 +10,35 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class Main {
     public static void main(String[] args) {
 
-        // create frame
-        JFrame frame = new JFrame("Game Library");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
-        frame.setLayout(new GridLayout());
-
-        JPanel northPanel = new JPanel();
-        northPanel.setLayout(new FlowLayout());
-        northPanel.add(new JButton("Button 1"));
-        northPanel.add(new JButton("Button 2"));
-
-        // create buttons
-        JButton button1 = new JButton("Add game");
-        JButton delete = new JButton("Delete game");
-        JButton button2 = new JButton("See library");
-        JButton button3 = new JButton("Exit");
-        JTextField textArea = new JTextField(20);
-        textArea.setEditable(true);
-        JTextArea listArea = new JTextArea(20,20);
-        listArea.setEditable(true);
-
-        // add image
-
         // create objects
-        Library newGame = new Library();
+        Library Library = new Library(); // can I invoke two objects w3ith different names, but then use () to modify?
+        UI UI = new UI();
 
+        // create frame
+        JFrame frame = new JFrame("Game Library"); // create frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes frame
+        frame.setSize(900, 800); // sets frame size
+        frame.setLayout(new GridBagLayout()); // sets layout type
 
-
-        // invite to add game
-        button1.addActionListener(new ActionListener() {
+        // button and field to add game to DB
+            // add game button
+        JButton addGameButton = UI.addGameButton("Add game",6,8,1,1);
+        frame.add(addGameButton);
+        addGameButton.addActionListener(new ActionListener() { // listen for click
             @Override
             public void actionPerformed(ActionEvent e) {
-                newGame.addGame(textArea);
-
-                                                      }
-
-        });
-
-        // open existing library
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Other.other();
-
+                Library.addGame(UI.inputField());
             }
         });
 
-        // Add components to the frame
-        frame.add(new JLabel("Enter Game Name:"));
-        frame.add(button1);
-        frame.add(textArea);
-        frame.add(label);
-        //   frame.add(delete);
-        newGame.showList(frame); // calls method that shows list
 
+        // render frame and components inside it
+            // add elements to frame
+        frame.add(UI.inputField());
+        frame.add(UI.gameList(Library.seelib()));
 
-        // Make the frame visible
+            // render frame finally
         frame.setVisible(true);
 
-
-                                              }
+    }
                                           }

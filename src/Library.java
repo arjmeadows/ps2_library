@@ -21,39 +21,29 @@ public class Library {
     private final DatabaseManager dbManager = new DatabaseManager();
 
 
-    // Add game
-    public void addGame(JTextField textArea) {
-        String newGame = textArea.getText();
+    // Writes game to the database
+    public void addGame(JTextField inputField) { // this makes no sense.
+        String newGame = inputField.getText();
         String modalmessage = newGame + " has been added to your game library on " + LocalDate.now();
         String modaltitle = "Game added to library";
         String nameupdatesql = "INSERT INTO game_list(title) VALUES(?)";
 
+        // Open connection to database and confirm to use
         try (Connection conn = dbManager.connect();  // Get a connection to the database
              PreparedStatement gametitle = conn.prepareStatement(nameupdatesql)) {
             gametitle.setString(1, newGame);
             gametitle.executeUpdate();
             uicall.plainmodal(modaltitle, modalmessage);
-            seelib();
-            textArea.setText("");
+            inputField.setText("");
+            System.out.println("Written");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
 
-    // delete game
-    public void removeGame(String selectedItem) {
-        // Writing to a CSV file
-        try (FileWriter writer = new FileWriter("games.csv", false)) {
-            writer.append("\n")
-                    .append(selectedItem + " (added on " + LocalDate.now() + ")");
-        } catch (java.io.IOException a) {
-            System.out.print("No!");
-        }
     }
 
 
-    // Show library button - create csv reader class later
 
     public DefaultListModel seelib() {
         DefaultListModel<String> sb = new DefaultListModel<>();
@@ -74,6 +64,7 @@ public class Library {
                     // Retrieve data by column name
                     String title = rs.getString("title");
                     ((DefaultListModel<String>) sb).addElement(title);
+
                 }
             } // Automatically closes stmt and rs due to try-with-resources
 
@@ -93,39 +84,35 @@ public class Library {
     }
 
 
-    public JList<String> showList(JFrame frame) {
+////    public JList showList(JFrame frame) {
+////
+////        DefaultListModel games = seelib(); // call in data read by seelib()
+////
+////        itemList.addListSelectionListener(new ListSelectionListener() {
+////            @Override
+////            public void valueChanged(ListSelectionEvent e) {
+////                // Only proceed if the selection is not adjusting (final selection)
+////                if (!e.getValueIsAdjusting()) {
+////                    String selectedGame = itemList.getSelectedValue(); // Get the selected item
+////                    if (selectedGame != null) {
+////                    System.out.println(selectedGame);
+//                    }
+//                }
+//            }
+//        });
 
-        DefaultListModel games = seelib();
 
-        JList<String> itemList = new JList<>(games); // Create JList with items
-        itemList.setPreferredSize(new Dimension(200, 500)); // Width: 300 pixels, Height: 200 pixels
-        itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        frame.add(itemList);
 
-        itemList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                // Only proceed if the selection is not adjusting (final selection)
-                if (!e.getValueIsAdjusting()) {
-                    String selectedGame = itemList.getSelectedValue(); // Get the selected item
-                    if (selectedGame != null) {
-                        System.out.println("Selected game: " + selectedGame);
-                    }
-                }
-            }
-        }); // Closing the addListSelectionListener block
 
-        return itemList; // Ensure this line is after the listener
     }
 
-    public void imageswap(String selectedgame) {
-        //database needs to match and find the column
-        ImageIcon imageIcon = new ImageIcon("src/mgs_cover.jpg");
-        JLabel label = new JLabel(imageIcon);
+//    public String selectedGame(String selectedGame) {
+//        String gameselected = selectedGame;
+//        return gameselected;
+//    }
 
-        ;
-                    }
-    }
 
-}
 
+
+                    //myJList.revalidate();
+//myJList.repaint();

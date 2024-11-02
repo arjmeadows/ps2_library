@@ -45,26 +45,26 @@ public class Other {
 
 
 
-        // remove existing items;
-        itemList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    Library deleteGame = new Library();
-                    String selectedItem = itemList.getSelectedValue();
-
-                    // call delete method on button press
-                    delete.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            deleteGame.removeGame(selectedItem);
-                            delete.repaint();     // Forces the component to repaint itself
-
-                        }
-                    });
-                }
-            }
-        });
+//        // remove existing items;
+//        itemList.addListSelectionListener(new ListSelectionListener() {
+//            @Override
+//            public void valueChanged(ListSelectionEvent e) {
+//                if (!e.getValueIsAdjusting()) {
+//                    Library deleteGame = new Library();
+//                    String selectedItem = itemList.getSelectedValue();
+//
+//                    // call delete method on button press
+//                    delete.addActionListener(new ActionListener() {
+//                        @Override
+//                        public void actionPerformed(ActionEvent e) {
+//                            deleteGame.removeGame(selectedItem);
+//                            delete.repaint();     // Forces the component to repaint itself
+//
+//                        }
+//                    });
+//                }
+//            }
+//        });
 
 
         // invite to add game
