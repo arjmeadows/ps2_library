@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ListResourceBundle;
+import java.util.concurrent.Flow;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -12,6 +13,7 @@ public class Main {
 
     private static String selectedGame = "src/p4.jpg";
     private static ImageIcon imageIcon1 = new ImageIcon(selectedGame);
+
 private JFrame frame;
 
 
@@ -25,13 +27,11 @@ private JFrame frame;
         UI UI = new UI();
 
 
-
-
         // create frame
         JFrame frame = new JFrame("Game Library"); // create frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes frame
         frame.setSize(1080, 1920); // sets frame size
-        frame.setLayout(new GridBagLayout()); // sets layout type
+        frame.setLayout(new FlowLayout(FlowLayout.CENTER,15,15)); // sets layout type
 
 
         JList test = UI.gameList(Library.seelib(), frame);
@@ -43,23 +43,8 @@ private JFrame frame;
         frame.add(inf);
 
 
-    JLabel label = new JLabel(imageIcon1); // this could be in the UI class.
-        GridBagConstraints label_gbc = new GridBagConstraints(); //creates constraint to assign to button
-
-        //  define constraints
-        label_gbc.gridx = 1; // Column
-        label_gbc.gridy = 1; // Row
-        label_gbc.anchor = GridBagConstraints.NORTH; // Anchor position
-        label_gbc.weightx = 1; // Horizontal weight
-        label_gbc.weighty = 1; // Vertical weight
-        label_gbc.insets = new Insets(1, 1, 1, 1); // Insets for spacing
-
-        frame.add(label, label_gbc);
-
-
-
-
-
+        JLabel box = UI.gameBox(imageIcon1);
+        frame.add(box);
 
 
         test.addListSelectionListener(new ListSelectionListener() {
@@ -69,17 +54,17 @@ private JFrame frame;
                                               // Check if the event is not adjusting (to prevent double calls)
                                               selectedGame = (String) test.getSelectedValue(); // Get the selected item
                                               imageIcon1 = new ImageIcon(selectedGame);
-                                              label.setIcon(imageIcon1);
+                                             box.setIcon(imageIcon1);
                                               System.out.println(selectedGame);
-                                              label.revalidate();
-                                              label.repaint();
+                                             box.revalidate();
+                                              box.repaint();
                                               frame.revalidate();
                                               frame.repaint();
                                           }
                                       });
 
 
-        JButton addGameButton = UI.addGameButton("Add game",3,3,1,1, frame);
+        JButton addGameButton = UI.addGameButton("Add game");
         addGameButton.addActionListener(new ActionListener() { // listen for click
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,6 +84,7 @@ private JFrame frame;
 
         // render frame finally
         frame.setVisible(true);
+        frame.add(addGameButton);
 
 
     }
