@@ -49,7 +49,10 @@ public class UI {
         jList.setPreferredSize(new Dimension(200, 800)); // Width: 300 pixels, Height: 200 pixels
         jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(jList); // Add scrolling support
-
+        scrollPane.setPreferredSize(new Dimension(200, 800)); // Optional: set size for scroll pane
+        frame.add(jList); // Use CENTER to fill the space
+        jList.repaint();
+        jList.revalidate();
 
         return jList;
     }

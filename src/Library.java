@@ -34,9 +34,8 @@ public class Library {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-return capt;
+        return capt;
     }
-
 
 
     public DefaultListModel seelib() {
@@ -76,37 +75,4 @@ return capt;
         }
         return sb;
     }
-
-
-////    public JList showList(JFrame frame) {
-////
-////        DefaultListModel games = seelib(); // call in data read by seelib()
-////
-////        itemList.addListSelectionListener(new ListSelectionListener() {
-////            @Override
-////            public void valueChanged(ListSelectionEvent e) {
-////                // Only proceed if the selection is not adjusting (final selection)
-////                if (!e.getValueIsAdjusting()) {
-////                    String selectedGame = itemList.getSelectedValue(); // Get the selected item
-////                    if (selectedGame != null) {
-////                    System.out.println(selectedGame);
-//                    }
-//                }
-//            }
-//        });
-
-
-
-
-    }
-
-//    public String selectedGame(String selectedGame) {
-//        String gameselected = selectedGame;
-//        return gameselected;
-//    }
-
-
-
-
-                    //myJList.revalidate();
-//myJList.repaint();
+}

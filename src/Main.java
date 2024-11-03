@@ -47,12 +47,23 @@ public class Main {
             }
         });
 
+
+        // show game
+
+       public void showimage(newGame.selectedGame(String selectedGame)));
+        ImageIcon imageIcon = new ImageIcon(selectedGame);
+        JLabel label = new JLabel(imageIcon);
+       frame.add(label);
+       label.getParent().revalidate();
+       label.getParent().repaint();
+
         // render frame and components inside it
             // add elements to frame
 
 
         // render frame finally
         frame.setVisible(true);
+
 
     }
 
