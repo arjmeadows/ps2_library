@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,29 +10,56 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Main {
 
+    private static String selectedGame = "src/p4.jpg";
+    private static ImageIcon imageIcon1 = new ImageIcon(selectedGame);
+
+
+
     public static void main(String[] args) {
 
-
+        System.out.println(selectedGame);
 
         // create objects
         Library Library = new Library(); // can I invoke two objects w3ith different names, but then use () to modify?
         UI UI = new UI();
 
 
-
         // create frame
         JFrame frame = new JFrame("Game Library"); // create frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes frame
-        frame.setSize(1080, 1920
-        ); // sets frame size
+        frame.setSize(1080, 1920); // sets frame size
         frame.setLayout(new GridBagLayout()); // sets layout type
 
         JList test = UI.gameList(Library.seelib(), frame);
         frame.add(test);
 
+
         // creates a text field and stores it as a variable
         JTextField inf = UI.inputField();
         frame.add(inf);
+
+
+    JLabel label = new JLabel(imageIcon1);
+    frame.add(label);
+
+
+
+
+        test.addListSelectionListener(new ListSelectionListener() {
+
+                                          @Override
+                                          public void valueChanged(ListSelectionEvent e) {
+                                              // Check if the event is not adjusting (to prevent double calls)
+                                              selectedGame = (String) test.getSelectedValue(); // Get the selected item
+                                              imageIcon1 = new ImageIcon(selectedGame);
+                                              label.setIcon(imageIcon1);
+                                              System.out.println(selectedGame);
+                                              label.revalidate();
+                                              label.repaint();
+                                              frame.revalidate();
+                                              frame.repaint();
+                                          }
+                                      });
 
 
         JButton addGameButton = UI.addGameButton("Add game",6,8,1,1);
@@ -45,20 +74,11 @@ public class Main {
                 test.repaint();
 
             }
+
         });
 
 
-        // show game
 
-       public void showimage(newGame.selectedGame(String selectedGame)));
-        ImageIcon imageIcon = new ImageIcon(selectedGame);
-        JLabel label = new JLabel(imageIcon);
-       frame.add(label);
-       label.getParent().revalidate();
-       label.getParent().repaint();
-
-        // render frame and components inside it
-            // add elements to frame
 
 
         // render frame finally

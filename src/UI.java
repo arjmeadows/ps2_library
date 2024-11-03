@@ -47,12 +47,11 @@ public class UI {
     public JList gameList(DefaultListModel list, JFrame frame) {
         JList<String> jList = new JList<>(list); // Create JList with items
         jList.setPreferredSize(new Dimension(200, 800)); // Width: 300 pixels, Height: 200 pixels
-        jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(jList); // Add scrolling support
-        scrollPane.setPreferredSize(new Dimension(200, 800)); // Optional: set size for scroll pane
+      jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         frame.add(jList); // Use CENTER to fill the space
         jList.repaint();
         jList.revalidate();
+
 
         return jList;
     }
