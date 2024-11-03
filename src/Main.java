@@ -12,6 +12,7 @@ public class Main {
 
     private static String selectedGame = "src/p4.jpg";
     private static ImageIcon imageIcon1 = new ImageIcon(selectedGame);
+private JFrame frame;
 
 
 
@@ -24,11 +25,14 @@ public class Main {
         UI UI = new UI();
 
 
+
+
         // create frame
         JFrame frame = new JFrame("Game Library"); // create frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes frame
         frame.setSize(1080, 1920); // sets frame size
         frame.setLayout(new GridBagLayout()); // sets layout type
+
 
         JList test = UI.gameList(Library.seelib(), frame);
         frame.add(test);
@@ -39,8 +43,21 @@ public class Main {
         frame.add(inf);
 
 
-    JLabel label = new JLabel(imageIcon1);
-    frame.add(label);
+    JLabel label = new JLabel(imageIcon1); // this could be in the UI class.
+        GridBagConstraints label_gbc = new GridBagConstraints(); //creates constraint to assign to button
+
+        //  define constraints
+        label_gbc.gridx = 1; // Column
+        label_gbc.gridy = 1; // Row
+        label_gbc.anchor = GridBagConstraints.NORTH; // Anchor position
+        label_gbc.weightx = 1; // Horizontal weight
+        label_gbc.weighty = 1; // Vertical weight
+        label_gbc.insets = new Insets(1, 1, 1, 1); // Insets for spacing
+
+        frame.add(label, label_gbc);
+
+
+
 
 
 
@@ -62,8 +79,7 @@ public class Main {
                                       });
 
 
-        JButton addGameButton = UI.addGameButton("Add game",6,8,1,1);
-        frame.add(addGameButton);
+        JButton addGameButton = UI.addGameButton("Add game",3,3,1,1, frame);
         addGameButton.addActionListener(new ActionListener() { // listen for click
             @Override
             public void actionPerformed(ActionEvent e) {
