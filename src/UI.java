@@ -21,25 +21,24 @@ public class UI {
         addGameButton_gbc.anchor = GridBagConstraints.NORTH; // Anchor position
         addGameButton_gbc.weightx = weightx; // Horizontal weight
         addGameButton_gbc.weighty = weighty; // Vertical weight
-        addGameButton_gbc.insets = new Insets(10, 0, 1, 0); // Insets for spacing
+        addGameButton_gbc.insets = new Insets(10, 1, 1, 1); // Insets for spacing
 
         return addGameButton;
     }
 
-    // create input field
+    // create input field UI
     public JTextField inputField() {
         JTextField inputField = new JTextField(20);
         inputField.setEditable(true);
-        String input = inputField.getText();
-        GridBagConstraints inputField_gbc= new GridBagConstraints(); //creates constraint to assign to button
+        GridBagConstraints inputField_gbc = new GridBagConstraints(); //creates constraint to assign to button
 
         //  define constraints
-        inputField_gbc.gridx = 0; // Column
-        inputField_gbc.gridy = 0; // Row
+        inputField_gbc.gridx = 1; // Column
+        inputField_gbc.gridy = 1; // Row
         inputField_gbc.anchor = GridBagConstraints.SOUTH; // Anchor position
         inputField_gbc.weightx = 4; // Horizontal weight
         inputField_gbc.weighty = 5; // Vertical weight
-        inputField_gbc.insets = new Insets(0, 0, 1, 0); // Insets for spacing
+        inputField_gbc.insets = new Insets(1, 1, 1, 1); // Insets for spacing
 
         return inputField;
     }

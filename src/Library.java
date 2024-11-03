@@ -1,8 +1,4 @@
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
-import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -22,23 +18,23 @@ public class Library {
 
 
     // Writes game to the database
-    public void addGame(JTextField inputField) { // this makes no sense.
-        String modalmessage = inputField + " has been added to your game library on " + LocalDate.now();
+    public String addGame(String capt) { // this makes no sense.
+        String modalmessage = capt + " has been added to your game library on " + LocalDate.now();
         String modaltitle = "Game added to library";
         String nameupdatesql = "INSERT INTO game_list(title) VALUES(?)";
 
         // Open connection to database and confirm to use
         try (Connection conn = dbManager.connect();  // Get a connection to the database
              PreparedStatement gametitle = conn.prepareStatement(nameupdatesql)) {
-            gametitle.setString(1, gamename);
+            gametitle.setString(1, capt);
             gametitle.executeUpdate();
             uicall.plainmodal(modaltitle, modalmessage);
-            System.out.println("Written");
+            System.out.println("nice" + capt + "Written");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+return capt;
     }
 
 
