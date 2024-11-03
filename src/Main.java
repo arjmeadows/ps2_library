@@ -2,10 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ListResourceBundle;
+
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Main {
+
     public static void main(String[] args) {
+
+
 
         // create objects
         Library Library = new Library(); // can I invoke two objects w3ith different names, but then use () to modify?
@@ -16,8 +21,12 @@ public class Main {
         // create frame
         JFrame frame = new JFrame("Game Library"); // create frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes frame
-        frame.setSize(900, 800); // sets frame size
+        frame.setSize(1080, 1920
+        ); // sets frame size
         frame.setLayout(new GridBagLayout()); // sets layout type
+
+        JList test = UI.gameList(Library.seelib(), frame);
+        frame.add(test);
 
         // creates a text field and stores it as a variable
         JTextField inf = UI.inputField();
@@ -31,16 +40,18 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 String capt = inf.getText();
                 Library.addGame(capt);
+                test.setModel(Library.seelib());
+                test.revalidate();
+                test.repaint();
+
             }
         });
-
-frame.add(UI.gameList(Library.seelib()));
-
 
         // render frame and components inside it
             // add elements to frame
 
-            // render frame finally
+
+        // render frame finally
         frame.setVisible(true);
 
     }

@@ -29,7 +29,7 @@ public class Library {
             gametitle.setString(1, capt);
             gametitle.executeUpdate();
             uicall.plainmodal(modaltitle, modalmessage);
-            System.out.println("nice" + capt + "Written");
+            System.out.println(capt + " written");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
