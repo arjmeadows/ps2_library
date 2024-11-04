@@ -42,6 +42,9 @@ private JFrame frame;
         JTextField inf = UI.inputField();
         frame.add(inf);
 
+        JTextField boxsrc = UI.inputField();
+        frame.add(boxsrc);
+
 
         JLabel box = UI.gameBox(imageIcon1);
         frame.add(box);
@@ -53,6 +56,9 @@ private JFrame frame;
                                           public void valueChanged(ListSelectionEvent e) {
                                               // Check if the event is not adjusting (to prevent double calls)
                                               selectedGame = (String) test.getSelectedValue(); // Get the selected item
+
+
+
                                               imageIcon1 = new ImageIcon(selectedGame);
                                              box.setIcon(imageIcon1);
                                               System.out.println(selectedGame);
@@ -68,8 +74,9 @@ private JFrame frame;
         addGameButton.addActionListener(new ActionListener() { // listen for click
             @Override
             public void actionPerformed(ActionEvent e) {
-                String capt = inf.getText();
-                Library.addGame(capt);
+                String capt = inf.getText(); //capt stores game from input field
+                String capt2 = boxsrc.getText();
+                Library.addGame(capt, capt2);
                 test.setModel(Library.seelib());
                 test.revalidate();
                 test.repaint();
@@ -77,9 +84,6 @@ private JFrame frame;
             }
 
         });
-
-
-
 
 
         // render frame finally
