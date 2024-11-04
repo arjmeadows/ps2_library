@@ -38,8 +38,9 @@ public class Library {
     }
 
 
-    public DefaultListModel seelib() {
+    public Game seelib() {
         DefaultListModel<String> sb = new DefaultListModel<>();
+        Game game = new Game(null,null,null);
 
         try {
             // Get a connection to the database
@@ -57,10 +58,8 @@ public class Library {
                     // Retrieve data by column name
                     String title = rs.getString("title");
                     String box = rs.getString("box");
-                    Game game = new Game(title, box);
-                    System.out.println(game.getTitle() + " " + game.getBoxsrc());
-                    ((DefaultListModel<String>) sb).addElement(game.getTitle());
-
+                    ((DefaultListModel<String>) sb).addElement(title);
+                    game = new Game(title, box, sb);
 
                 }
             } // Automatically closes stmt and rs due to try-with-resources
@@ -77,11 +76,9 @@ public class Library {
             }
 
         }
-        return sb;
+
+        return game;
     }
 
-        public Game fetchfgame() {
-        return game;
 
-        }
         }

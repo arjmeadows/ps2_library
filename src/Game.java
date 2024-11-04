@@ -1,11 +1,25 @@
+import javax.swing.*;
+
 public class Game {
 
     private String title;
     private String boxsrc;
+    private DefaultListModel<String> list;
 
-   public Game(String title, String boxsrc) {
+
+    public DefaultListModel getList() {
+        return list;
+    }
+
+    public void setList(DefaultListModel list) {
+        this.list = list;
+    }
+
+
+   public Game(String title, String boxsrc, DefaultListModel<String> list) {
        this.title = title;
        this.boxsrc = boxsrc;
+       this.list = list;
 
    }
 
