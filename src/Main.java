@@ -11,9 +11,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Main {
 
-    private static String selectedGame = "src/p4.jpg";
+    private static String selectedGame = "";
     private static ImageIcon imageIcon1 = new ImageIcon(selectedGame);
-
 private JFrame frame;
 
 
@@ -25,7 +24,6 @@ private JFrame frame;
         // create objects
         Library Library = new Library(); // can I invoke two objects w3ith different names, but then use () to modify?
         UI UI = new UI();
-
 
         // create frame
         JFrame frame = new JFrame("Game Library"); // create frame
@@ -48,7 +46,8 @@ private JFrame frame;
 
         JLabel box = UI.gameBox(imageIcon1);
         frame.add(box);
-
+        Game fetch = Library.fetchfgame(); // passing the returned game at the bottom of library to here as game
+System.out.println(Library.fetchfgame());
 
         test.addListSelectionListener(new ListSelectionListener() {
 
@@ -57,11 +56,10 @@ private JFrame frame;
                                               // Check if the event is not adjusting (to prevent double calls)
                                               selectedGame = (String) test.getSelectedValue(); // Get the selected item
 
-
-
-                                              imageIcon1 = new ImageIcon(selectedGame);
-                                             box.setIcon(imageIcon1);
-                                              System.out.println(selectedGame);
+                                              if (selectedGame == fetch.getTitle()) {
+                                                  imageIcon1 = new ImageIcon(fetch.getBoxsrc()); // needs to be here somewhere that we link the two
+                                              } else imageIcon1 = new ImageIcon("src/x.jpg");
+                                              box.setIcon(imageIcon1);
                                              box.revalidate();
                                               box.repaint();
                                               frame.revalidate();

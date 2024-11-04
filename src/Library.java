@@ -9,7 +9,6 @@ public class Library {
     ResultSet rs = null; // Declare the ResultSet variable
     Scanner scanner = new Scanner(System.in);
 
-
     //create object
     UI uicall = new UI();
 
@@ -47,7 +46,7 @@ public class Library {
             conn = dbManager.connect(); // Assuming dbManager.connect() returns a Connection
 
             // SQL query
-            String sql = "SELECT title FROM games"; // Adjust the SQL according to your table
+            String sql = "SELECT title, box FROM games"; // Adjust the SQL according to your table
 
             // Create a Statement and execute the query
             try (Statement stmt = conn.createStatement()) { // Create Statement in try-with-resources
@@ -57,7 +56,11 @@ public class Library {
                 while (rs.next()) {
                     // Retrieve data by column name
                     String title = rs.getString("title");
-                    ((DefaultListModel<String>) sb).addElement(title);
+                    String box = rs.getString("box");
+                    Game game = new Game(title, box);
+                    System.out.println(game.getTitle() + " " + game.getBoxsrc());
+                    ((DefaultListModel<String>) sb).addElement(game.getTitle());
+
 
                 }
             } // Automatically closes stmt and rs due to try-with-resources
@@ -76,4 +79,9 @@ public class Library {
         }
         return sb;
     }
-}
+
+        public Game fetchfgame() {
+        return game;
+
+        }
+        }

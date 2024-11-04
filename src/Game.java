@@ -1,5 +1,14 @@
 public class Game {
 
+    private String title;
+    private String boxsrc;
+
+   public Game(String title, String boxsrc) {
+       this.title = title;
+       this.boxsrc = boxsrc;
+
+   }
+
     public String getTitle() {
         return title;
     }
@@ -15,8 +24,5 @@ public class Game {
     public void setBoxsrc(String boxsrc) {
         this.boxsrc = boxsrc;
     }
-
-    String title;
-   String boxsrc;
 
 }
