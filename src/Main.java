@@ -4,6 +4,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.*;
 
 public class Main {
@@ -49,7 +50,7 @@ public class Main {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
-                String sql1 = "SELECT title, box FROM games WHERE title = ?";
+                String sql1 = "SELECT title, box, boxart FROM games WHERE title = ?";
 
                 try (Connection conn = dbManager.connect();
                      PreparedStatement stmt = conn.prepareStatement(sql1)) {
@@ -61,16 +62,17 @@ public class Main {
                         if (rs.next()) {
                             String title = rs.getString("title");
                             String box = rs.getString("box");
-                            System.out.println(title + box);
+                            String boxart = rs.getString("boxart");
 
-                            imageIcon1 = new ImageIcon(box);
+                            System.out.println(title + boxart);
+
+                            imageIcon1 = new ImageIcon(boxart);
                             box1.setIcon(imageIcon1);
-                            System.out.println(title + box);
+                            System.out.println(title + boxart);
                             box1.revalidate();
                             box1.repaint();
                             frame.revalidate();
                             frame.repaint();
-                            System.out.println(title + box);
 
                             }
                     } // ResultSet auto-closes here
@@ -89,12 +91,19 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 String capt = inf.getText();
                 String capt2 = boxsrc.getText();
-                Library.addGame(capt, capt2);
+                File selectedFile = UI.getSelectedFile();
+                Library.addGame(capt, capt2, selectedFile);
                 test.setModel(Library.seelib());
                 test.revalidate();
                 test.repaint();
             }
         });
+
+        UI.Uploadbutton(frame);
+
+
+
+
 
         frame.setVisible(true);
         frame.add(addGameButton);

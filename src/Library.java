@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -17,16 +18,17 @@ public class Library {
 
 
     // Writes game to the database
-    public String addGame(String capt, String capt2) { // this makes no sense.
+    public String addGame(String capt, String capt2, File selectedFile) { // this makes no sense.
         String modalmessage = capt + " has been added to your game library on " + LocalDate.now();
         String modaltitle = "Game added to library";
-        String nameupdatesql = "INSERT INTO games(title, box) VALUES(?,?)";
+        String nameupdatesql = "INSERT INTO games(title, box, boxart) VALUES(?,?,?)";
 
         // Open connection to database and confirm to use
         try (Connection conn = dbManager.connect();  // Get a connection to the database
              PreparedStatement gametitle = conn.prepareStatement(nameupdatesql)) {
             gametitle.setString(1, capt);
             gametitle.setString(2, capt2);
+            gametitle.setString(3, selectedFile.getAbsolutePath());
             gametitle.executeUpdate();
             uicall.plainmodal(modaltitle, modalmessage);
             System.out.println(capt + " written");

@@ -1,8 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 
 public class UI {
+
+    private File selectedFile;
+
+
+    public File getSelectedFile() {
+        return selectedFile;
+    }
 
 
     public void plainmodal(String modaltitle, String modalmessage) {
@@ -86,6 +96,39 @@ public class UI {
     }
 
 
+    public void Uploadbutton(JFrame frame) {
+        // Create the upload button
+        JButton uploadButton = new JButton("Upload File");
+        uploadButton.setBounds(150, 100, 100, 30);
+        frame.add(uploadButton);
+
+        // Create a label to display the selected file
+        JLabel label = new JLabel("No file selected");
+        label.setBounds(50, 150, 300, 30);
+        frame.add(label);
+
+        // Add action listener to the button
+        uploadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create a file chooser
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    selectedFile = fileChooser.getSelectedFile();
+
+                    label.setText("Selected file: " + selectedFile.getAbsolutePath());
+                } else {
+                    label.setText("No file selected");
+
+                }
+            }
+        });
+    }
+//
+//    public UI (File selectedFile) {
+//        selectedFile = selectedFile;
+//    }
     }
 
 
