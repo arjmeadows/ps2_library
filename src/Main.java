@@ -4,41 +4,31 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ListResourceBundle;
-import java.util.concurrent.Flow;
-
-import static javax.swing.JOptionPane.showMessageDialog;
+import java.sql.*;
 
 public class Main {
 
-    private static String selectedGame = " ";
+    private static String selectedGame = "";
     private static ImageIcon imageIcon1 = new ImageIcon(selectedGame);
-private JFrame frame;
-
-
+    private JFrame frame;
 
     public static void main(String[] args) {
 
         System.out.println(selectedGame);
 
-
         // create objects
-        Library Library = new Library(); // can I invoke two objects w3ith different names, but then use () to modify?
+        Library Library = new Library();
         UI UI = new UI();
+        final DatabaseManager dbManager = new DatabaseManager();
 
         // create frame
-        JFrame frame = new JFrame("Game Library"); // create frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes frame
-        frame.setSize(1080, 1920); // sets frame size
-        frame.setLayout(new FlowLayout(FlowLayout.CENTER,15,15)); // sets layout type
+        JFrame frame = new JFrame("Game Library");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1080, 1920);
+        frame.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
 
-        Game fetch = Library.seelib(); // passing the returned game at the bottom of library to here as game
-        System.out.println(Library.seelib());
-
-        JList test = UI.gameList(fetch.getList(), frame);
+        JList test = UI.gameList(Library.seelib(), frame);
         frame.add(test);
-
-
 
         // creates a text field and stores it as a variable
         JTextField inf = UI.inputField();
@@ -47,58 +37,66 @@ private JFrame frame;
         JTextField boxsrc = UI.inputField();
         frame.add(boxsrc);
 
-
-        JLabel box = UI.gameBox(imageIcon1);
-        frame.add(box);
-
+        JLabel box1 = UI.gameBox(imageIcon1);
+        frame.add(box1);
+        box1.revalidate();
+        box1.repaint();
+        frame.revalidate();
+        frame.repaint();
 
         test.addListSelectionListener(new ListSelectionListener() {
 
-                                          @Override
-                                          public void valueChanged(ListSelectionEvent e) {
-                                              // Check if the event is not adjusting (to prevent double calls)
-                                              selectedGame = (String) test.getSelectedValue(); // Get the selected item
-
-                                              if (selectedGame == fetch.getTitle()) {
-                                                  imageIcon1 = new ImageIcon(fetch.getBoxsrc()); // needs to be here somewhere that we link the two
-                                                  box.revalidate();
-                                                  box.repaint();
-                                                  frame.revalidate();
-                                                  frame.repaint();
-                                                  box.setIcon(imageIcon1);
-                                              }
-
-                                              box.setIcon(imageIcon1);
-                                             box.revalidate();
-                                              box.repaint();
-                                              frame.revalidate();
-                                              frame.repaint();
-                                          }
-                                      });
-
-
-        JButton addGameButton = UI.addGameButton("Add game");
-        addGameButton.addActionListener(new ActionListener() { // listen for click
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String capt = inf.getText(); //capt stores game from input field
-                String capt2 = boxsrc.getText();
-                Library.addGame(capt, capt2);
-                test.setModel(fetch.getList());
-                test.revalidate();
-                test.repaint();
+            public void valueChanged(ListSelectionEvent e) {
 
+                String sql1 = "SELECT title, box FROM games WHERE title = ?";
+
+                try (Connection conn = dbManager.connect();
+                     PreparedStatement stmt = conn.prepareStatement(sql1)) {
+                    String selectedGame = (String) test.getSelectedValue();
+                    stmt.setString(1, selectedGame);
+
+                    try (ResultSet rs = stmt.executeQuery()) {
+
+                        if (rs.next()) {
+                            String title = rs.getString("title");
+                            String box = rs.getString("box");
+                            System.out.println(title + box);
+
+                            imageIcon1 = new ImageIcon(box);
+                            box1.setIcon(imageIcon1);
+                            System.out.println(title + box);
+                            box1.revalidate();
+                            box1.repaint();
+                            frame.revalidate();
+                            frame.repaint();
+                            System.out.println(title + box);
+
+                            }
+                    } // ResultSet auto-closes here
+                } catch (SQLException ex) {
+                    throw new RuntimeException("Database error: " + ex.getMessage(), ex);
+                } finally {
+                    // Connection auto-closes due to try-with-resources
+                }
             }
-
         });
 
+        JButton addGameButton = UI.addGameButton("Add game");
 
-        // render frame finally
+        addGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String capt = inf.getText();
+                String capt2 = boxsrc.getText();
+                Library.addGame(capt, capt2);
+                test.setModel(Library.seelib());
+                test.revalidate();
+                test.repaint();
+            }
+        });
+
         frame.setVisible(true);
         frame.add(addGameButton);
-
-
     }
-
-
-     }
+}
