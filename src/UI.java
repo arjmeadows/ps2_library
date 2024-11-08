@@ -73,9 +73,6 @@ public class UI {
         list_gbc.weighty = 0; // Vertical weight
         list_gbc.insets = new Insets(1, 1, 1, 1); // Insets for spacing
 
-
-
-
         return jList;
     }
 
@@ -94,6 +91,16 @@ public class UI {
 
         return label;
     }
+
+    public JFrame frame() {
+
+        JFrame frame = new JFrame("Game Library"); // create frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes frame
+        frame.setSize(1080, 1920); // sets frame size
+        frame.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15)); // sets layout type
+
+        return frame;
+}
 
 
     public void Uploadbutton(JFrame frame) {
